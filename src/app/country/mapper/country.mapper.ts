@@ -1,5 +1,5 @@
-import { Country } from '../interfaces/country.interface';
-import { RESTCountry } from '../interfaces/rest-countries.interface';
+import type { Country } from '../interfaces/country.interface';
+import type { RESTCountry } from '../interfaces/rest-countries.interface';
 
 export class CountryMapper {
     static mapRestCountryToCountry(item: RESTCountry): Country {
@@ -8,7 +8,8 @@ export class CountryMapper {
             flag: item.flag,
             flagSvg: item.flags.svg,
             name: item.name.common,
-            capital: item.capital,
+            nameSpa: item.translations['spa'].common ?? 'No spanish translated',
+            capital: item.capital.join(','),
             population: item.population,
         };
     }
