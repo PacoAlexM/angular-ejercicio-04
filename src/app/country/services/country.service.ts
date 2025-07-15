@@ -13,10 +13,22 @@ const API_URL = 'https://restcountries.com/v3.1';
 export class CountryService {
     private http = inject(HttpClient);
 
-    serachByCapital(query: string): Observable<Country[]> {
+    searchByCapital(query: string): Observable<Country[]> {
         const lowerQuery = query.toLowerCase();
 
         return this.http.get<RESTCountry[]>(`${API_URL}/capital/${lowerQuery}`)
+            .pipe(
+                map(res => CountryMapper.mapRestCountryArrayToCountryArray(res)),
+                catchError(error => {
+                    return throwError(() => new Error(`No se encontró información con: ${query}`))
+                })
+            );
+    }
+
+    searchByCountry(query: string): Observable<Country[]> {
+        const lowerQuery = query.toLowerCase();
+
+        return this.http.get<RESTCountry[]>(`${API_URL}/name/${lowerQuery}`)
             .pipe(
                 map(res => CountryMapper.mapRestCountryArrayToCountryArray(res)),
                 catchError(error => {

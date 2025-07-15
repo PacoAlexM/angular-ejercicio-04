@@ -21,7 +21,7 @@ export class ByCapitalComponent {
 
             if (!query) return [];
 
-            return await firstValueFrom(this.countryService.serachByCapital(query));
+            return await firstValueFrom(this.countryService.searchByCapital(query));
         }
     });
 
