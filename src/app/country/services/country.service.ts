@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/rest-countries.interface';
-import { map, Observable, catchError, throwError } from 'rxjs';
+import { map, Observable, catchError, throwError, delay } from 'rxjs';
 import type { Country } from '../interfaces/country.interface';
 import { CountryMapper } from '../mapper/country.mapper';
 
@@ -19,6 +19,7 @@ export class CountryService {
         return this.http.get<RESTCountry[]>(`${API_URL}/capital/${lowerQuery}`)
             .pipe(
                 map(res => CountryMapper.mapRestCountryArrayToCountryArray(res)),
+                delay(1500),
                 catchError(error => {
                     return throwError(() => new Error(`No se encontró información con: ${query}`))
                 })
