@@ -37,4 +37,17 @@ export class CountryService {
                 })
             );
     }
+
+    searchCountryByCode(code: string) {
+        const lowerCode = code.toLowerCase();
+
+        return this.http.get<RESTCountry[]>(`${API_URL}/alpha/${lowerCode}`)
+            .pipe(
+                map(res => CountryMapper.mapRestCountryArrayToCountryArray(res)),
+                map(countries => countries.at(0)),
+                catchError(error => {
+                    return throwError(() => new Error(`No se encontró información con: ${code}`))
+                })
+            );
+    }
 }
