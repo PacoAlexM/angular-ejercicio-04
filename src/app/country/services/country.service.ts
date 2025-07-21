@@ -19,7 +19,7 @@ export class CountryService {
         return this.http.get<RESTCountry[]>(`${API_URL}/capital/${lowerQuery}`)
             .pipe(
                 map(res => CountryMapper.mapRestCountryArrayToCountryArray(res)),
-                delay(1500),
+                delay(500),
                 catchError(error => {
                     return throwError(() => new Error(`No se encontró información con: ${query}`))
                 })

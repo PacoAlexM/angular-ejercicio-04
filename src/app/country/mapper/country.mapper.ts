@@ -11,6 +11,9 @@ export class CountryMapper {
             nameSpa: item.translations['spa'].common ?? 'No spanish translated',
             capital: item.capital.join(','),
             population: item.population,
+            area: item.area,
+            region: item.region,
+            subRegion: item.subregion,
         };
     }
 
